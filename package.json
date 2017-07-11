@@ -14,10 +14,18 @@
   },
   "scripts": {
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder -w"
+  },
+  "build": {
+    "win": {
+      "target": "nsis",
+      "asar": "false",
+      "icon": "icon.ico"
+    }
   },
   "devDependencies": {
     "electron": "^1.6.11",
-    "electron-builder": "^19.13.0"
+    "electron-builder": "^19.13.0",
+    "electron-winstaller": "^2.6.3"
   }
 }
