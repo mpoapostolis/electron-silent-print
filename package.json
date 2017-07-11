@@ -1,0 +1,23 @@
+{
+  "name": "silent-print",
+  "version": "0.0.1",
+  "description": "electron-silent-print",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mpoapostolis/electron-silent-print.git"
+  },
+  "author": "mpoapostolis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.3"
+  },
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^1.6.11",
+    "electron-builder": "^19.13.0"
+  }
+}
