@@ -9,7 +9,8 @@ const server = http.createServer((req, res) => {
   if (req.method == 'POST') {
     let body = '';
     req.on('data', data => {
-      console.log(JSON.parse(data));
+      const { dato } = JSON.parse(data);
+      console.log(dato);
       fs.writeFile(path.join(os.tmpdir(), 'data.pdf'), data, err => console.log(err));
       exec(`gs.exe ${path.join(os.tmpdir(), 'data.pdf')}`)
     });
