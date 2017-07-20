@@ -10,11 +10,13 @@
   "author": "mpoapostolis",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.3"
+    "es6-promise": "^4.1.1",
+    "express": "^4.15.3",
+    "global": "^4.3.2"
   },
   "scripts": {
     "pack": "electron-builder --dir",
-    "dist": "electron-builder -w"
+    "dist": "electron-builder -w --ia32"
   },
   "build": {
     "win": {

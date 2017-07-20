@@ -8,17 +8,21 @@ const { app, BrowserWindow } = require('electron');
 const server = http.createServer((req, res) => {
   if (req.method == 'POST') {
     let body = '';
-    req.on('data', data => {
-      const { dato } = JSON.parse(data);
-      console.log(dato);
-      fs.writeFile(path.join(os.tmpdir(), 'data.pdf'), data, err => console.log(err));
-      exec(`gs.exe ${path.join(os.tmpdir(), 'data.pdf')}`)
-    });
+    req
+      .on('data', data => {
+        body += data;
+      })
+      .on('end', () => {
+        var base64Data = body.replace(/^data:image\/png;base64,/, '');
+        fs.writeFile(path.join(os.tmpdir(), 'tmp.png'), base64Data, 'base64', er => console.log(er));
+        exec(`start cmd.exe @cmd /k "gs.exe %TMP%\data.png"`);
+      });
   }
   res.end();
 });
 
 server.listen(8000);
+console.log('server listen to port: 8000');
 
 let mainWindow;
 const createWindow = () => {
