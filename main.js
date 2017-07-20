@@ -1,11 +1,19 @@
-const http = require('http');
+const https = require('https');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const { app, BrowserWindow } = require('electron');
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+};
 
-const server = http.createServer((req, res) => {
+const server = https.createServer(options, (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Request-Method', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
+  res.setHeader('Access-Control-Allow-Headers', '*');
   if (req.method == 'POST') {
     let body = '';
     req
@@ -15,7 +23,7 @@ const server = http.createServer((req, res) => {
       .on('end', () => {
         var base64Data = body.replace(/^data:image\/png;base64,/, '');
         fs.writeFile(path.join(os.tmpdir(), 'tmp.png'), base64Data, 'base64', er => console.log(er));
-        exec(`start cmd.exe @cmd /k "gs.exe %TMP%\data.png"`);
+        exec(`start cmd.exe @cmd /k "gs.exe %TMP%\tmp.png & exit"`);
       });
   }
   res.end();

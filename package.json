@@ -19,6 +19,11 @@
     "dist": "electron-builder -w --ia32"
   },
   "build": {
+    "extraFiles": [
+      "gs.exe",
+      "cert.pem",
+      "key.pem"
+    ],
     "win": {
       "target": "nsis",
       "asar": "false",
